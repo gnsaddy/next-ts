@@ -1,6 +1,6 @@
 
 import { CONSTANTS } from '../../actions';
-import produce from 'immer';
+import produce, { castDraft } from 'immer';
 
 type InitialState = {
     userData: {
@@ -23,9 +23,8 @@ const userReducer = (state: InitialState = initialState, action: any) =>
         switch (action.type) {
             case CONSTANTS.SET_USER_DETAILS: {
                 const userData: any = action.payload
-
-                draft.userData = userData
-                console.log("payload from user reducer", userData)
+                draft = userData
+                sessionStorage.setItem('user', JSON.stringify(draft))
                 break;
             }
 
